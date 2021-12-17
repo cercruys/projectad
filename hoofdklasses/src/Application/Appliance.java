@@ -1,5 +1,6 @@
 package Application;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Appliance {
     private String apName;
@@ -85,5 +86,40 @@ public class Appliance {
 
     public void setKWH(int kwh) {
         this.kwh = kwh;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Appliance apparaat = (Appliance) o;
+        return kwh == apparaat.kwh &&
+                kwh == apparaat.roomID &&
+                this.apName.equals(apparaat.getApName()) &&
+                this.eec.equals(apparaat.getEec());
+
+    }
+
+    public int getKwh() {
+        return kwh;
+    }
+
+    public int getRoomID() {
+        return roomID;
+    }
+
+    public String getEec() {
+        return eec;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(apName, eec, kwh, apID, roomID);
+    }
+
+
+
+    @Override
+    public String toString() {
+        return apName  + " "+ eec + " "  + kwh + " " +roomID;
     }
 }

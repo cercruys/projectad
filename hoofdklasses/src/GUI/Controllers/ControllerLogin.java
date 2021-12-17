@@ -64,15 +64,18 @@ public class ControllerLogin {
             ExecuteQuery executeQuery1 = new ExecuteQuery();
             Person person = executeQuery1.getPerson(UsernameTextfield.getText());
             IngelogdePerson.setPerson(person); //lukt
+            System.out.println("person was set");
 
-            if (person.getLandlordOfStudent().equals("Student")){
+            if (person.getLandlordOfStudent().equals("student")){
                 Student student = new Student(IngelogdePerson.getPerson());
                 System.out.println(student.toString()); //lukt
                 IngelogdeStudent.setIngelogdeStudent(student);
+                System.out.println("student was set"); //lukt
                 root = FXMLLoader.load(getClass().getResource("/GUI/fxml/HomeStudent.fxml")); }
             else{
                 Landlord landLord = new Landlord(IngelogdePerson.getPerson());
                 IngelogdeHuisbaas.setIngelogdeHuisbaas(landLord);
+                System.out.println("loading homelandlord...");
                 root =  FXMLLoader.load(getClass().getResource("/GUI/fxml/HomeLandlord.fxml"));}
             Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 750, 500));

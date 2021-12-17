@@ -307,15 +307,58 @@ public class ExecuteQuery {
         return eConsumptions;
     }
 
-    public void addAppliance(String query) throws SQLException{
+    public void addAppliance(Appliance apparaat) throws SQLException{
+        preparedStatement = connection.prepareStatement("INSERT INTO appliances (apname, energyclass, kwhannum, roomid) VALUES " + " (?,?,?,?);");
+
+
+        preparedStatement.setString(1, apparaat.getApName());
+        preparedStatement.setString(2, apparaat.getEec());
+        preparedStatement.setInt(3, apparaat.getKwh());
+        preparedStatement.setInt(4, apparaat.getRoomID());
+
+
+        preparedStatement.close();
+        preparedStatement.close();
+        connection.close();
+    }
+    public void deleteAppliance(Appliance apparaat) throws SQLException{
+        System.out.println(apparaat);
+        System.out.println(apparaat.getApName());
 
         //execute query
-        System.out.println("Create statement");
-        this.statement = connection.createStatement();
-        System.out.println("Statement was made");
+        System.out.println("Creating Prepared statement...");
+        statement = connection.createStatement();
+        statement.executeUpdate("DELETE FROM appliances WHERE roomid= "+"'" +apparaat.getRoomID()+"'"+ " AND " + "apname= "  + "'" +apparaat.getApName()+"'" +";");
+
         System.out.println("executing Query...");
-        int insertedRows = statement.executeUpdate(query); //query: INSERT INTO appliances VALUES (values dat je wil toevoegen)
-        System.out.println(insertedRows + " appliances were inserted");
+        System.out.println("Valid result");
+
+
+
+        statement.close();
+        statement.close();
+        connection.close();
+
+
+    }
+
+    public void setAppliance(Appliance Gewijzigd, Appliance oorspronkelijk) throws SQLException{
+
+        //execute query
+        System.out.println("Creating Prepared statement...");
+        statement = connection.createStatement();
+        statement.executeUpdate("insert INTO appliances (apname, energyclass, kwhannum, roomid) VALUES  (" + '"' + Gewijzigd.getApName() +'"'  +", " + '"' +Gewijzigd.getEec()+'"'+ ", "+ '"' +Gewijzigd.getKwh()+'"' +", " + '"' +oorspronkelijk.getRoomID()+ '"'+ ");");
+
+        System.out.println("executing Query...");
+        System.out.println("Valid result");
+
+
+
+        statement.close();
+        statement.close();
+        connection.close();
+
+
     }
 
     public void deleteAppliance(String query) throws SQLException{
@@ -371,6 +414,55 @@ public class ExecuteQuery {
         connection.close();
 
         return location;
+    }
+
+    public void setApparaten(ArrayList<Appliance> apparaten) throws SQLException {
+
+        {
+            int i = 0;
+            preparedStatement = connection.prepareStatement("INSERT INTO appliances (apname, energyclass, kwhannum, roomid) VALUES " + " (?,?,?,?);");
+
+            for (Appliance apparaat : apparaten) {
+
+                preparedStatement.setString(1, apparaat.getApName());
+                preparedStatement.setString(2, apparaat.getEec());
+                preparedStatement.setInt(3, apparaat.getKwh());
+                preparedStatement.setInt(4, apparaat.getRoomID());
+
+
+                preparedStatement.addBatch();
+                i++;
+
+                if (i % 1000 == 0 || i == apparaten.size()) {
+                    preparedStatement.executeBatch(); // Execute every 1000 items.
+                }
+            }
+        }
+        preparedStatement.close();
+        preparedStatement.close();
+        connection.close();
+    }
+
+    public void addStudent(String query) throws SQLException{
+
+        //execute query
+        System.out.println("Create statement");
+        this.statement = connection.createStatement();
+        System.out.println("Statement was made");
+        System.out.println("executing Query...");
+        int insertedRows = statement.executeUpdate(query); //query: INSERT INTO student VALUES (values dat je wil toevoegen)
+        System.out.println(insertedRows + " student(s) were inserted");
+    }
+
+    public void removeStudent(String query) throws SQLException{
+
+        //execute query
+        System.out.println("Create statement");
+        this.statement = connection.createStatement();
+        System.out.println("Statement was made");
+        System.out.println("executing Query...");
+        int deletedRows = statement.executeUpdate(query); //query: DELETE FROM student WHERE SUsername = de meegegeven SUsername
+        System.out.println(deletedRows + " student(s) were deleted");
     }
 
 }

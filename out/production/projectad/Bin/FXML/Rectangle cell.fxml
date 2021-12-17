@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane prefHeight="20.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Bin.ListViewSample">
+   <children>
+      <Rectangle fx:id="cell" arcHeight="5.0" arcWidth="5.0" fill="#0088ff" height="20.0" stroke="BLACK" strokeType="INSIDE" width="750.0" />
+      <TextField prefHeight="26.0" prefWidth="586.0" promptText="apparaat" />
+      <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="Delete" StackPane.alignment="CENTER_RIGHT" />
+      <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="Wijzig" StackPane.alignment="CENTER" />
+   </children>
+</StackPane>
